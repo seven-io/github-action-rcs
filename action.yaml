@@ -1,0 +1,32 @@
+name: 'seven.io RCS'
+author: 'seven communications GmbH & Co. KG'
+description: 'Send RCS through GitHub Actions via the seven.io RCS Gateway'
+inputs:
+  apiKey:
+    description: 'A seven.io API Key. Alternatively stored in environment variable SEVEN_API_KEY'
+    required: true
+  delay:
+    description: 'Delayed dispatch at given time: Unix-Timestamp or format yyyy-mm-dd hh:ii'
+  foreign_id:
+    description: 'Foreign ID returned in callbacks. Allowed characters: a-z, A-Z, 0-9, .-_@'
+  from:
+    description: 'Sender ID; max 16 numeric or 11 alphanumeric characters'
+  label:
+    description: 'Custom label. Allowed characters: a-z, A-Z, 0-9, .-_@'
+  text:
+    description: 'Text of the RCS message. To send a simple RCS message (without images, suggested replies, etc.), only enter the plain text of the message here. Otherwise, use an RCS object.'
+    required: true
+  to:
+    description: 'The recipient number for your RCS message. This can also be a contact name or a group name.'
+    required: true
+  ttl:
+    description: 'Time To Live in minutes. Default is 2880'
+outputs:
+  response:
+    description: 'The API response'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+branding:
+  color: 'green'
+  icon: 'message-square'
