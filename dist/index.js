@@ -27,10 +27,12 @@ const send = () => __awaiter(void 0, void 0, void 0, function* () {
         foreign_id: getCleanInput('foreign_id', undefined),
         from: getCleanInput('from', undefined),
         label: getCleanInput('label', undefined),
-        text: '',
-        to: '',
+        performance_tracking: ['true', '1'].includes((0, core_1.getInput)('performance_tracking')),
+        text: (0, core_1.getInput)('text', { required: true }),
+        to: (0, core_1.getInput)('to', { required: true }),
         ttl: getCleanInput('ttl', undefined),
     };
+    (0, core_1.debug)(JSON.stringify(rcsParams));
     (0, core_1.debug)('Sending RCS');
     try {
         const apiKey = (0, core_1.getInput)('apiKey') || process.env.SEVEN_API_KEY;
