@@ -21,6 +21,7 @@ const send = async () => {
         to: getInput('to', {required: true}),
         ttl: getCleanInput('ttl', undefined),
     };
+    debug(JSON.stringify(rcsParams));
 
     debug('Sending RCS');
 
