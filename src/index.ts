@@ -7,8 +7,8 @@ import {ok} from 'node:assert';
 
 type Type = Pick<RcsDispatchParams, 'delay' | 'foreign_id' | 'from' | 'label' | 'text' | 'to' | 'ttl'>;
 
-const getCleanInput = <T extends keyof Type>(k: T, defaultValue: Type[T]): Type[T] => {
-    const input = getInput(k)
+const getCleanInput = <T extends keyof Type>(k: T, defaultValue: Type[T], required = false): Type[T] => {
+    const input = getInput(k, {required})
     return input === '' ? defaultValue : input as Type[T]
 }
 
@@ -18,8 +18,8 @@ const send = async () => {
         foreign_id: getCleanInput('foreign_id', undefined),
         from: getCleanInput('from', undefined),
         label: getCleanInput('label', undefined),
-        text: '',
-        to: '',
+        text: getCleanInput('text', '', true),
+        to: getCleanInput('to', '', true),
         ttl: getCleanInput('ttl', undefined),
     };
 
