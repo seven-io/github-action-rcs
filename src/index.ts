@@ -7,19 +7,21 @@ import {ok} from 'node:assert';
 
 type Type = Pick<RcsDispatchParams, 'delay' | 'foreign_id' | 'from' | 'label' | 'text' | 'to' | 'ttl'>;
 
-const rcsParams: Type = {
-    delay: undefined,
-    foreign_id: undefined,
-    from: undefined,
-    label: undefined,
-    text: '',
-    to: '',
-    ttl: undefined,
-};
+const getCleanInput = <T extends keyof Type>(k: T, defaultValue: Type[T]): Type[T] => {
+    const input = getInput(k)
+    return input === '' ? defaultValue : input as Type[T]
+}
 
 const send = async () => {
-    (<(keyof Type)[]>Object.keys(rcsParams))
-        .forEach(k => (<Type[typeof k]>rcsParams[k]) = getInput(k));
+    const rcsParams: Type = {
+        delay: getCleanInput('delay', undefined),
+        foreign_id: getCleanInput('foreign_id', undefined),
+        from: getCleanInput('from', undefined),
+        label: getCleanInput('label', undefined),
+        text: '',
+        to: '',
+        ttl: getCleanInput('ttl', undefined),
+    };
 
     debug('Sending RCS');
 

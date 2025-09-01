@@ -17,18 +17,20 @@ const client_1 = require("@seven.io/client");
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const node_assert_1 = require("node:assert");
 global.fetch = node_fetch_1.default;
-const rcsParams = {
-    delay: undefined,
-    foreign_id: undefined,
-    from: undefined,
-    label: undefined,
-    text: '',
-    to: '',
-    ttl: undefined,
+const getCleanInput = (k, defaultValue) => {
+    const input = (0, core_1.getInput)(k);
+    return input === '' ? defaultValue : input;
 };
 const send = () => __awaiter(void 0, void 0, void 0, function* () {
-    Object.keys(rcsParams)
-        .forEach(k => rcsParams[k] = (0, core_1.getInput)(k));
+    const rcsParams = {
+        delay: getCleanInput('delay', undefined),
+        foreign_id: getCleanInput('foreign_id', undefined),
+        from: getCleanInput('from', undefined),
+        label: getCleanInput('label', undefined),
+        text: '',
+        to: '',
+        ttl: getCleanInput('ttl', undefined),
+    };
     (0, core_1.debug)('Sending RCS');
     try {
         const apiKey = (0, core_1.getInput)('apiKey') || process.env.SEVEN_API_KEY;
