@@ -34,7 +34,7 @@
     "url": "git+https://github.com/seven-io/github-action-rcs.git"
   },
   "scripts": {
-    "act": "cross-env SEVEN_API_KEY=$SEVEN_API_KEY_SANDBOX act -s",
+    "act": "cross-env SEVEN_API_KEY=$SEVEN_API_KEY_SANDBOX act -v",
     "build": "tsc",
     "prepublishOnly": "npm run build",
     "test": "npm run build && jest"
