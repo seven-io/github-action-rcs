@@ -57,6 +57,11 @@ The unique ID of your agent. You can view this in the Settings of your account. 
 
 Custom label. Allowed characters: a-z, A-Z, 0-9, .-_@
 
+`performance_tracking`
+
+Activate click and performance tracking for URLs found in the RCS text. This also activates the URL shortener.
+
+
 `ttl`
 
 Specifies the validity period of the RCS in minutes. The default is 2880, i.e. 48 hours.

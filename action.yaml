@@ -13,6 +13,8 @@ inputs:
     description: 'Sender ID; max 16 numeric or 11 alphanumeric characters'
   label:
     description: 'Custom label. Allowed characters: a-z, A-Z, 0-9, .-_@'
+  performance_tracking:
+    description: 'Activate click and performance tracking for URLs found in the RCS text. This also activates the URL shortener.'
   text:
     description: 'Text of the RCS message. To send a simple RCS message (without images, suggested replies, etc.), only enter the plain text of the message here. Otherwise, use an RCS object.'
     required: true

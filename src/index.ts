@@ -5,21 +5,20 @@ import {ok} from 'node:assert';
 
 (global as any).fetch = fetch;
 
-type Type = Pick<RcsDispatchParams, 'delay' | 'foreign_id' | 'from' | 'label' | 'text' | 'to' | 'ttl'>;
-
-const getCleanInput = <T extends keyof Type>(k: T, defaultValue: Type[T], required = false): Type[T] => {
-    const input = getInput(k, {required})
-    return input === '' ? defaultValue : input as Type[T]
+const getCleanInput = <T extends keyof RcsDispatchParams>(k: T, defaultValue: RcsDispatchParams[T]): RcsDispatchParams[T] => {
+    const input = getInput(k)
+    return input === '' ? defaultValue : input as RcsDispatchParams[T]
 }
 
 const send = async () => {
-    const rcsParams: Type = {
+    const rcsParams: RcsDispatchParams = {
         delay: getCleanInput('delay', undefined),
         foreign_id: getCleanInput('foreign_id', undefined),
         from: getCleanInput('from', undefined),
         label: getCleanInput('label', undefined),
-        text: getCleanInput('text', '', true),
-        to: getCleanInput('to', '', true),
+        performance_tracking:  ['true', '1'].includes(getInput('performance_tracking')),
+        text: getInput('text', {required: true}),
+        to: getInput('to', {required: true}),
         ttl: getCleanInput('ttl', undefined),
     };
 
