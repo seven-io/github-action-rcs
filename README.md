@@ -1,78 +1,71 @@
-<img alt='' src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" />
+<p align="center">
+  <img src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" alt="seven logo" />
+</p>
 
-# Official seven.io RCS GitHub Action
+<h1 align="center">seven RCS - GitHub Action</h1>
 
-Send RCS from GitHub Actions.
+<p align="center">
+  Send RCS messages from any GitHub Actions workflow via the seven gateway.
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-teal.svg" alt="MIT License" /></a>
+  <a href="https://github.com/marketplace/actions/seven-rcs"><img src="https://img.shields.io/badge/GitHub-Marketplace-181717" alt="GitHub Marketplace" /></a>
+  <img src="https://img.shields.io/badge/Node.js-runtime-brightgreen" alt="Node.js runtime" />
+</p>
+
+---
+
+## Features
+
+- **Plain Text or Rich RCS** - Send simple text or full RCS objects with images, suggested replies and more
+- **Performance Tracking** - Optional URL shortening + click tracking
+- **Scheduling & TTL** - Delayed dispatch and custom validity windows
+- **Foreign IDs & Labels** - Tag messages for downstream tracking
 
 ## Prerequisites
 
-- An account at seven.io. [Sign up for free](https://app.seven.io/signup)!
-- Account balance and an [API Key](https://help.seven.io/en/api-key-access).
+- A [seven account](https://www.seven.io/) with API key ([How to get your API key](https://help.seven.io/en/developer/where-do-i-find-my-api-key))
+- An RCS-capable sender / agent ID configured under [Settings](https://app.seven.io/) in your seven account
+- The `SEVEN_API_KEY` secret configured under **Settings > Secrets and variables > Actions**
 
 ## Usage
 
-1. Set up your credentials secrets in your repository settings by
-   specifying `SEVEN_API_KEY`.
-
-2. Add the following to your workflow
-
 ```yaml
-- name: 'Send RCS'
+- name: Send RCS
   uses: seven-io/github-action-rcs@master
   with:
-    from: 'Tommy Tester'
+    from: 'agent-id-or-leave-empty'
     text: 'seven.io wishes you a nice day!'
-    to: '+4901234567890'
+    to:   '+4901234567890'
   env:
     SEVEN_API_KEY: ${{ secrets.SEVEN_API_KEY }}
 ```
 
 ## Inputs
 
-`apiKey` **Required**
-
-An API Key from seven.io. Alternatively use environment variable SEVEN_API_KEY.
-
-`to` **Required**
-
-The recipient number for your RCS message. This can also be a contact name or a group name.
-
-`text` **Required**
-
-Text of the RCS message. To send a simple RCS message (without images, suggested replies, etc.), only enter the plain text of the message here. Otherwise, use an RCS object.
-
-`delay`
-
-Delayed dispatch at given time: Unix-Timestamp or format yyyy-mm-dd hh:ii
-
-`foreign_id`
-
-Foreign ID returned in callbacks. Allowed characters: a-z, A-Z, 0-9, .-_@
-
-`from`
-
-The unique ID of your agent. You can view this in the Settings of your account. If not specified, the first RCS-capable sender will be used.
-
-`label`
-
-Custom label. Allowed characters: a-z, A-Z, 0-9, .-_@
-
-`performance_tracking`
-
-Activate click and performance tracking for URLs found in the RCS text. This also activates the URL shortener.
-
-
-`ttl`
-
-Specifies the validity period of the RCS in minutes. The default is 2880, i.e. 48 hours.
+| Input | Required | Description |
+|-------|----------|-------------|
+| `apiKey` | yes* | seven API key. *Optional if `SEVEN_API_KEY` env var is set. |
+| `to` | yes | Recipient phone number, contact name or group name |
+| `text` | yes | Plain RCS text or a full RCS object as JSON |
+| `from` | no | Agent ID. Defaults to the first RCS-capable sender if omitted |
+| `delay` | no | Delayed dispatch (Unix timestamp or `yyyy-mm-dd hh:ii`) |
+| `ttl` | no | Time-to-live in minutes. Default `2880` (48h) |
+| `foreign_id` | no | Foreign ID for callbacks. Allowed: `a-z A-Z 0-9 .-_@` |
+| `label` | no | Custom label. Allowed: `a-z A-Z 0-9 .-_@` |
+| `performance_tracking` | no | Enable URL shortening + click tracking |
 
 ## Outputs
 
-`response`
+| Output | Description |
+|--------|-------------|
+| `response` | API [return code](https://docs.seven.io/en/rest-api/endpoints/sms#return-codes) |
 
-Returns a [return code](https://docs.seven.io/en/rest-api/endpoints/sms#return-codes)
-from the API.
+## Support
+
+Need help? Feel free to [contact us](https://www.seven.io/en/company/contact/) or [open an issue](https://github.com/seven-io/github-action-rcs/issues).
 
 ## License
 
-[![MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE)
+[MIT](LICENSE)
