@@ -5,7 +5,7 @@
     "url": "https://github.com/seven-io/github-action-rcs/issues"
   },
   "dependencies": {
-    "@actions/core": "^1.11.1",
+    "@actions/core": "^3.0.1",
     "@seven.io/client": "^5.4.0",
     "node-fetch": "^2.7.0"
   },
